@@ -13,7 +13,12 @@ public class Hoja3 {
         //fechaUsa();
         //fechaCompleta();
         //H3E3();
-        H3E8();
+        //H3E8();
+        //H3E4();
+        //fechaAElegir();
+        //System.out.println(menorDeLosTres(3, 5, 2));
+        //System.out.println(comprobarTriangulo(4, 4, 1));
+        System.out.println(areaTriangulo(12, 6, 7));
     }
     
     /**
@@ -258,5 +263,118 @@ public class Hoja3 {
             return radianes * (180/Math.PI);
         }
         
+        /**
+         * Escribir el método Java necesario para completar el programa siguiente:
+         */
+        public static void H3E4(){
+            /* De cartesianas a polares, dim 2 */
+            Scanner in = new Scanner (System.in);
+            in.useLocale(Locale.US);
+            double x, y;
+            System.out.print ("Escriba las 2 coordenadas de un punto: ");
+            x = in.nextDouble(); 
+            y = in.nextDouble();
+            in.close();
+            System.out.println ("Punto ("+ x + ", " + y + ")");
+            System.out.print ("En polares es: ");
+            System.out.println ( "Radio= " + rad(x,y) + ", ángulo = " + ang(x,y));
+        }
+
+        /**
+         * Funcion para calcular el radio en funcion de unas coordenadas bidimensionales.
+         * @param x Coordenada x
+         * @param y Coordenada y
+         * @return Radio (double)
+         */
+        public static double rad(double x, double y){
+           return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); 
+        }
+
+        /**
+         * Funcion para calcular el angulo en funcion de unas coordenadas bidimensionales.
+         * @param x Coordenada x
+         * @param y Coordenada y
+         * @return Angulo en grados (double)
+         */
+        public static double ang(double x, double y){
+            return Math.toDegrees(Math.atan2(y, x));
+        }
+
+        /**
+         * Escribir un programa Java que pida al usuario 3 números enteros, para día, mes
+         * y año (supuestamente correctos), y un número de opción, 1 ó 0. El programa
+         * debe entonces escribir en pantalla la fecha en formato dia/mes/año ó mes dia,
+         * año, según la opción hay sido 1 ó 0, y usando los métodos del ejercicio 3.
+         */
+
+        /**
+         * Funcion que pide al usuario una fecha y la escribe en funcion de cual haya seleccionado
+         * Utiliza la funcion solicitarFecha4()
+         * @return Fecha por pantalla
+         */
+        public static void fechaAElegir(){
+            Scanner in = new Scanner(System.in);
+            in.useLocale(Locale.US);
+            int fechas[] = solicitarFecha4(in);
+            System.out.print("Seleccione la forma (0 o 1): ");
+            int modo = in.nextInt();
+            while (modo!=0 && modo!=1) {
+                System.out.print("Modo incorrecto (0 o 1): ");
+                modo = in.nextInt();
+            }
+
+            if (modo == 1){
+                comprobarFecha(fechas[0], fechas[1], fechas[2]);
+            }
+
+            else{
+                System.out.println(fechas[1]+"/"+fechas[0]+"/"+fechas[2]);
+            }
+        }
+
+        /**
+         * Funcion para saber que numero es menor de los 3
+         * @param a Primer entero
+         * @param b Segundo entero
+         * @param c Terecer entero
+         * @return El entero mayor (a, b o c)
+         */
+        public static int menorDeLosTres(int a, int b, int c){
+            if(a<=b){
+                return (a<=c)?a:c;
+            }
+            else{
+                return (b<=c)?b:c;
+            }
+        }
+
+        /**
+         * Funcion para averiguar si se puede hacer un trangulo o no
+         * @param a Lado a
+         * @param b Lado b
+         * @param c Lado c
+         * @return true o false
+         */
+        public static boolean comprobarTriangulo(int a, int b, int c){
+            return (a+b<=c || b+c<=a || a+c<=b)?false:true;
+        }
+
+        public static double areaTriangulo(int a, int b, int c){
+            boolean comp = comprobarTriangulo(a, b, c);
+            return (comp == true)?(calcularArea(a, b, c)):0;
+        }
+        /**
+         * Funcion para hallar el area de un triangulo
+         * @param a Lado a
+         * @param b lado b
+         * @param c Lado c
+         * @return area del triangulo (double)
+         */
+        public static double calcularArea(int a,int b,int c){
+            double s = (a+b+c)/2.0;
+            return Math.sqrt(s *(s - a) *(s - b) *(s - c));
+        }
+        
+
 }  
 
