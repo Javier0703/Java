@@ -374,7 +374,5 @@ public class Hoja3 {
             double s = (a+b+c)/2.0;
             return Math.sqrt(s *(s - a) *(s - b) *(s - c));
         }
-        
-
 }  
 
