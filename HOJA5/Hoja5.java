@@ -1,4 +1,5 @@
-import java.util.Scanner; 
+import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Hoja5{
@@ -7,7 +8,9 @@ public class Hoja5{
         //H5E2();
         //H5E3();
         //H5E4();
-        H5E5();
+        //H5E5();
+        //H5E6();
+        H5E7();
     }
 
     /**
@@ -151,4 +154,77 @@ public class Hoja5{
         }
         return contador;
     }
+
+    /**
+     * Diremos que un número n es raro cuando verifique que todo número entero
+     * positivo m , menor que él y coprimo con él, es primo. Por ejemplo, el 9 no es
+     * raro, porque en la lista (1, 2, 4, 5, 7 y 8) los hay compuestos. Pero el 8 sí es
+     * raro2. Elaborar un programa Java que liste por pantalla todos los números raros  
+     * existentes entre 3 y un valor introducido por el usuario (ambos inclusive).
+     */
+    public static void H5E6(){
+        Scanner in = new Scanner(System.in);
+        System.out.print("Introduce el valor máximo (n): ");
+        int n = in.nextInt();
+        System.out.println("Numeros raros:");
+        for (int i=2; i<=n; i++)
+            if (esRaro(i)) System.out.print(i + " ");
+        in.close();
+        //Un número n es raro si todos los enteros positivos m menores que n y coprimos con n 
+        //(es decir, mcd(n, m) = 1) son primos.
+    }
+
+    public static boolean esRaro(int n) {
+        for (int m = 1; m < n; m++) {
+            //Si el mcd es 1 y no es primo no es un numero raro
+            if (mcd(n, m) == 1 && !esPrimo(m)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static int mcd(int n, int m){
+        while (m != 0) {
+            int temp = m;
+            m = n % m;
+            n = temp;
+        }
+        return n;
+    }
+
+    //Metodo para saber si un numero es primo
+    public static boolean esPrimo(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Elaborar un programa Java que lea un número n por teclado y escriba en
+     * pantalla la distancia entre cada par de primos contiguos menores que n. Por
+     * ejemplo, si el número introducido es 15, primos menores son: 1, 2, 3, 5, 7, 11 y
+     * 13, que están a distancias: 1, 1, 2, 2, 4, 2, que es lo que debería mostrar el
+     * programa.
+     */
+    public static void H5E7(){
+        Scanner in = new Scanner(System.in);
+        System.out.print("Introduce el valor máximo (n): ");
+        int n = in.nextInt();
+        in.close();
+        //Generamos una lista con los primos
+        ArrayList<Integer> primos = new ArrayList<>();
+        for (int i=1; i<n; i++){
+            if(esPrimo(i)) primos.add(i);
+        }
+        
+        System.out.print("Distancia entre primos: ");
+        for(int i = 1; i< primos.size(); i++){
+            int dist = primos.get(i) - primos.get(i-1);
+            System.out.print(dist + " ");
+        }
+    }
+
 }
