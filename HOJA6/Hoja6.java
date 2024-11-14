@@ -9,7 +9,11 @@ public class Hoja6 {
         //H6E1(cadena,letra);
         //H6E2(cadena,letra);
         //H6E3(cadenaEj3, subcadena);
-        H6E4(cadenaEj3, subcadena);
+        //H6E4(cadenaEj3, subcadena);
+        //System.out.println(H6E5(cadena));
+        //int n = H6E6("1434"); System.out.println(n + 1 );
+        System.out.println(H6E7("34N56")); 
+        System.out.println(H6E7("34s4"));
     }
 
     /**
@@ -110,4 +114,71 @@ public class Hoja6 {
      * Escriba un método que devuelva una cadena que sea la inversa de su cadena
      * argumento (como si se leyera de atrás a delante).
      */
+    public static String H6E5(String cadena){
+        comprobarString(cadena);
+        String cadReves = "";
+        for(int i = cadena.length()-1; i>=0; i--){
+            cadReves+=Character.toString(cadena.charAt(i));
+        } 
+        return cadReves;   
+    } 
+
+    /**
+     * Escriba un método que devuelva el valor numérico entero de una cadena,
+     * imponiendo como precondición que la cadena argumento contenga solamente
+     * dígitos.
+     */
+    public static int H6E6(String cadena){
+        comprobarString(cadena);
+        if (compararCadenaSolodigitos(cadena))
+            return Integer.parseInt(cadena);
+        else
+            throw new IllegalArgumentException("La cadena solo puede ser digitos");
+    }
+    
+    /**
+     * metodo para comprovar si un
+     * @param cadena Cadena a comprobar
+     * @throws IllegalArgumentException si la cadena no son digitos
+     */
+    private static boolean compararCadenaSolodigitos(String cadena) {
+        if (cadena.matches("\\d+")) return true;
+        else return false;
+
+    } 
+    
+    /**
+     * Escriba una función que determine si una cadena de caracteres cumple o no
+     * todas las condiciones siguientes:
+     * a) los dos primeros caracteres son dígitos
+     * b) el tercer carácter es una de las letras N, S, E ó O
+     * c) a continuación hay 1 ó dos dígitos, cuyo valor numérico es un entero
+     * entre 1 y 10
+     */
+
+    public static boolean H6E7(String cadena){
+        comprobarString(cadena);
+        return comprobarCondicionesCadena(cadena.toUpperCase());
+    }
+
+    private static boolean comprobarCondicionesCadena(String cadena){
+        if (cadena.length() == 5 || cadena.length() == 4){
+            if (!(Character.isDigit(cadena.charAt(0)) && Character.isDigit(cadena.charAt(1)))){
+                return false;
+            }
+            char letra = cadena.charAt(2);
+            if (letra != 'N' && letra != 'S' && letra != 'E' && letra != 'O') {
+                return false;
+            }
+            String numerosDespues = cadena.substring(3);
+            if (!compararCadenaSolodigitos(numerosDespues))
+                return false;
+            return true;
+        }
+        else return false;
+    }
+
+    
+
+
 }
