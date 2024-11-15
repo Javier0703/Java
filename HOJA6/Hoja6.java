@@ -2,7 +2,7 @@ package HOJA6;
 
 public class Hoja6 {
     public static void main(String[] args){
-        String cadena = "Hola, esto es la hoja 6 de ejercicios";
+        String cadena = "Hola, esto es la hoja 6 de ejercicios"; 
         char letra = 'e';
         String cadenaEj3 = "Hola, esto es una esto prueba. Esto veremos";
         String subcadena = "esto";
@@ -177,8 +177,4 @@ public class Hoja6 {
         }
         else return false;
     }
-
-    
-
-
 }
