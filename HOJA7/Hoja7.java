@@ -1,6 +1,5 @@
 package HOJA7;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
@@ -10,6 +9,8 @@ public class Hoja7 {
         int[] prueba = {4,5,6,7,8};
         int[] vecOrdenado = {0,3,4,11};
         int[] prueba2 = {7,8,9,0,2};
+        int[] prueba3 = {6,8,4,7,5};
+        int[] vEj7 = new int[6]; vEj7[2] = 4; vEj7[4]=8;
         //int[] ej3 = {5,8,-1,-6,7,8,9,0,3,4};
         //double[] resultado = H7E1(prueba); System.out.println(Arrays.toString(resultado));
         //double[] res2 = H7E2(prueba); System.out.println(Arrays.toString(res2));
@@ -18,6 +19,14 @@ public class Hoja7 {
         //H7E5(); H7E5SinHasSet();
         //boolean[] l = H7E6_RepresentarBooleanas(prueba); System.out.println(Arrays.toString(l));
         //boolean[] m = H7E6_UnionVectores(prueba, vecOrdenado); System.out.println(Arrays.toString(m));
+        //H7E7(vEj7,9); System.out.println(Arrays.toString(vEj7));
+
+        //H7E9(vecOrdenado);
+        //int[] l = H7E10(45678); System.out.print(Arrays.toString(l));
+        //System.out.println(H7E11(prueba, vecOrdenado));
+        //H7E12();
+        H7E13();
+    
     }
 
     /**
@@ -199,5 +208,235 @@ public class Hoja7 {
             union[i] = aValue || bValue; 
         }
         return union;
+    }
+
+    /**
+     * Se dispone de un vector, parcialmente ocupado, que almacena números enteros clasificados 
+     * en orden creciente. Se desea conocer si un número introducido por teclado se encuentra en 
+     * el vector, en caso afirmativo se mostrará su posición, y en caso negativo se insertará en 
+     * la posición que le corresponda. Si se intenta insertar y el vector está lleno, se mostrará 
+     * un mensaje de error.
+     */
+    public static void H7E7(int[] v, int numero){
+        boolean esta = false;
+        if(!comprobarOrdenado(v))System.out.println("Vector no esta ordenado");
+        else{
+            for (int i = 0; i<v.length; i++){
+              if (v[i] == numero){
+                System.out.println("Esta en la posicion " + i);
+                esta = true;
+                break; 
+              } 
+            }
+            //No se encuentra en el vector
+            if(!esta) agregarNumeroVector(v, numero);
+        }
+    }
+
+    private static boolean comprobarOrdenado(int[] v){
+        int ultimoNumOcupado = 0;
+        for (int i=0; i<v.length; i++){
+            if(v[i]!=0){
+                if(v[i]>= ultimoNumOcupado)
+                    ultimoNumOcupado = v[i];
+                else return false;
+            }
+        }
+        return true;
+    }
+
+    private static void agregarNumeroVector(int[] v, int numero){
+        boolean huecosVacios = false;
+        boolean agregar = false;
+        for (int i=0; i<v.length; i++){
+            //Esta hueco esta vacio
+            if(v[i] == 0){
+                huecosVacios = true;
+                //Saber su numero anterior y su numero siguiente (Si es 0 es que no hay)
+                int numeroAnterior = numeroAnterior(v, i);
+                int numeroSiguiente = numeroSiguiente(v, i);
+                if( (numeroAnterior == 0 && numero<=numeroSiguiente)|| (numero>=numeroAnterior && numero<=numeroSiguiente) || (numeroSiguiente == 0 && numero>=numeroAnterior)){
+                    v[i] = numero;
+                    System.out.println("Numero agregado");
+                    agregar = true;
+                    break;
+                }
+            }
+        }
+        if(!huecosVacios)System.out.println("El vector esta lleno");
+        if(!agregar)System.out.println("Este numero no puede agregarse en este array.");
+    }
+
+    private static int numeroAnterior(int[] v, int num){
+        int numeroArray=0;
+        //Recorremos el array hacia atras desde ese puunto
+        for (int i =num-1; i>=0; i--){
+            if(v[i] != 0){
+                numeroArray = v[i];
+                break;
+            }
+        }
+        return numeroArray;
+    }
+
+    private static int numeroSiguiente(int[] v, int num){
+        int numeroArray=0;
+        //Recorremos el array hacia atras desde ese puunto
+        for (int i = num+1; i<v.length; i++ ){
+            if(v[i] != 0){
+                numeroArray = v[i];
+                break;
+            }
+        }
+        return numeroArray;
+    }
+
+    /*
+     * Sean dos vectores a y b cuyas componentes son de un tipo enumerado, por ejemplo int. 
+     * Diremos que a < b si:
+     *  - Existe una posición i para la que la componente de a es menor que la componente 
+     * correspondiente de b (ai < bi ), siendo las componentes anteriores iguales (aj = bj para j 
+     * < i).
+     * - Siendo todas las componentes de a iguales a las de b, el número de componentes de a es 
+     * menor que el de b. 
+     * Elaborar un método que devuelva -1 , 0 ó 1 dependiendo de si a < b, a = b o a > b.
+     */
+    public static int H7E8(int[]v, int[]w){
+        final int TAMANYOA = v.length;
+        final int TAMANYOB = v.length;
+        int aiMayor = 0;
+        int aiIgual = 0;
+        for (int i=0; i<Math.max(TAMANYOA,TAMANYOB); i++){
+            if(v[i]>w[i])aiMayor++;
+            if(v[i]==w[i])aiIgual++;
+        }
+        return 0;
+    }
+
+    /**
+     * Escribir un método que reciba un array cuyos elementos son enteros positivos. 
+     * El método dibuja tantos asteriscos como indique el número almacenado en cada 
+     * elemento del array. Por ejemplo, el array:
+     */
+    public static void H7E9(int[] v){
+        int numero;
+        for (int i=0; i<v.length; i++){
+            numero = v[i];
+            for (int j=1;j<=numero;j++){
+                System.out.print("*");
+            }
+            System.out.println("");
+        }
+    }
+
+    /**
+     * Crear una función que reciba un número entero positivo y a partir del número obtenga 
+     * como resultado un array que almacena por separado cada cifra del número. 
+     * Por ejemplo, para la entrada 5492
+     */
+    public static int[] H7E10(int v){
+        String numeroToString = String.valueOf(v);;
+        int[] numeros = new int[numeroToString.length()];
+        for(int i = 0; i<numeroToString.length(); i++){
+            numeros[i] = Character.getNumericValue(numeroToString.charAt(i));
+        }
+        return numeros;
+    }
+
+    /**
+     * Crear una función que reciba dos arrays de números enteros y devuelva verdadero si
+     *  el segundo contiene todos los elementos del primero sin importar el orden de los elementos.
+     *  Por ejemplo, para los arrays siguientes:
+     */
+    public static boolean H7E11(int[]v , int[]w){
+        final int TAMANYO = v.length;
+        if(TAMANYO!=w.length) throw new IllegalArgumentException("Arrays de distitnto tamaño");
+        for (int i = 0; i<TAMANYO; i++){
+            boolean esta = false;
+            for(int j=0; j<TAMANYO; j++){
+                if(v[i] == w[j])esta = true;
+            }
+            if(!esta) return false;
+        }
+        return true;
+    }
+
+    /**
+     * Crear un programa que defina un array que almacene 20.000 letras mayúsculas aleatorias 
+     * (caracteres de la A a la Z sin contar la Ñ). Crear un programa que muestre cada letra y
+     *  las veces que aparece en el array.
+     */
+    public static void H7E12(){
+        final int TAMANYO = 20000;
+        char[] letras = new char[TAMANYO];
+        int[] conteo = new int[26]; //Array para contar las letras
+        Random random = new Random();
+        for (int i = 0; i < TAMANYO; i++) {
+            letras[i] = (char)(random.nextInt(26) + 'A');
+        }
+        for(char letra : letras){
+            conteo[letra - 'A']++;
+        }
+        System.out.println("\nConteo de letras:");
+        for (int i = 0; i < 26; i++) {
+            System.out.println((char) (i + 'A') + ": " + conteo[i]);
+        }
+    }
+
+    /**
+     * Crear un programa que permita simular la generación de un mazo de cartas españolas. 
+     * En dicho programa se colocarán las 40 cartas de la baraja española (las cartas van del 1 al 7 y luego siguen la sota, 
+     * el caballo y el rey; de cada uno de los 4 palos). El programa desordenará el array de 
+     * forma aleatoria (lo cual significará “barajear” las cartas”) y luego mostrará en pantalla la 
+     * colocación actual de la baraja (por supuesto no se puede repetir la misma carta).
+     */
+    public static void H7E13() {
+        final int CARTASPALO = 10; // Cartas del 1 al 7, Sota (8), Caballo (9), Rey (10)
+        final int CARTAS = CARTASPALO * 4; // 40 cartas en total
+
+        String[] palos = {"Oros", "Bastos", "Copas", "Espadas"};
+        int[] baraja = new int[CARTAS];
+
+        // Generar las cartas numeradas del 1 al 10 para cada palo
+        for (int i = 0; i < CARTAS; i++) {
+            baraja[i] = i;
+        }
+        baraja = barajear(baraja);
+
+        System.out.println("Baraja barajeada:");
+        for (int i = 0; i < CARTAS; i++) {
+            int numero = (baraja[i] % CARTASPALO) + 1;
+            int palo = baraja[i] / CARTASPALO;
+            System.out.print("Carta " + (i + 1) + ": ");
+            switch (numero) {
+                case 8:
+                    System.out.print("Sota");
+                    break;
+                case 9:
+                    System.out.print("Caballo");
+                    break;
+                case 10:
+                    System.out.print("Rey");
+                    break;
+                default:
+                    System.out.print(numero);
+                    break;
+            }
+            System.out.print(" de " + palos[palo]);
+            System.out.println();
+        }
+    }
+
+    // Método para barajear la baraja usando el algoritmo de Fisher-Yates
+    private static int[] barajear(int[] baraja) {
+        Random random = new Random();
+        for (int i = baraja.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            // Intercambiar baraja[i] con baraja[j]
+            int temp = baraja[i];
+            baraja[i] = baraja[j];
+            baraja[j] = temp;
+        }
+        return baraja;
     }
 }
