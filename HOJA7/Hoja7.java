@@ -6,11 +6,11 @@ import java.util.Random;
 
 public class Hoja7 {
     public static void main(String[] args){
-        int[] prueba = {4,5,6,7,8};
-        int[] vecOrdenado = {0,3,4,11};
-        int[] prueba2 = {7,8,9,0,2};
-        int[] prueba3 = {6,8,4,7,5};
-        int[] vEj7 = new int[6]; vEj7[2] = 4; vEj7[4]=8;
+        //int[] prueba = {4,5,6,7,8};
+        //int[] vecOrdenado = {0,3,4,11};
+        //int[] prueba2 = {7,8,9,0,2};
+        //int[] prueba3 = {6,8,4,7,5};
+        //int[] vEj7 = new int[6]; vEj7[2] = 4; vEj7[4]=8;
         //int[] ej3 = {5,8,-1,-6,7,8,9,0,3,4};
         //double[] resultado = H7E1(prueba); System.out.println(Arrays.toString(resultado));
         //double[] res2 = H7E2(prueba); System.out.println(Arrays.toString(res2));
@@ -25,7 +25,8 @@ public class Hoja7 {
         //int[] l = H7E10(45678); System.out.print(Arrays.toString(l));
         //System.out.println(H7E11(prueba, vecOrdenado));
         //H7E12();
-        H7E13();
+        //H7E13();
+        H7E14();
     
     }
 
@@ -439,4 +440,45 @@ public class Hoja7 {
         }
         return baraja;
     }
+
+
+    /**
+     * Para almacenar enteros grandes, Java nos proporciona el tipo básico long. Pero incluso este 
+     * tipo admite números de hasta 18 cifras como mucho. Queremos trabajar con números enteros 
+     * mucho más largos. Para ello vamos a hacer un programa que realice estas acciones: 
+     *  a. Crear un array de 1600 números aleatorios del 0 al 9. 
+     *  b. Tras crear el array, aprovecharle para mostrar por pantalla 20 números 
+     *     aleatorios de 80 cifras. 
+     *  c. Finalmente mostrar por pantalla cuál es el número (de 80 cifras) 
+     *     más grande de todos los que han salido.
+     */
+    public static void H7E14(){
+        final int NUMEROS = 20;
+        final int TAMANYO = 80;
+        //Generamos el array de los numeros
+        int[] arrayNumeros = new int[NUMEROS*TAMANYO];
+        Random random = new Random();
+        for (int i=0; i<arrayNumeros.length; i++) 
+            arrayNumeros[i] = random.nextInt(10);
+        
+        //Generamos los 20 numeros de 80 cifras
+        String[] numerosLargos = new String[NUMEROS];
+        for (int i = 0; i < NUMEROS; i++) {
+            StringBuilder numero = new StringBuilder();
+            for (int j = 0; j < TAMANYO; j++) {
+                numero.append(arrayNumeros[i * TAMANYO + j]);
+            }
+            numerosLargos[i] = numero.toString();
+            System.out.println("Número " + (i + 1) + ": " + numerosLargos[i]);
+        }
+
+        //Comparamos para ver cual es el numero mas largo
+        String maxNumero = numerosLargos[0];
+        for (int i = 1; i < NUMEROS; i++) {
+            if (numerosLargos[i].compareTo(maxNumero) > 0) {
+                maxNumero = numerosLargos[i];
+            }
+        }
+        System.out.println("\nEl número más grande es: " + maxNumero);
+    } 
 }
